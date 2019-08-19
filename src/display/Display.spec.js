@@ -36,22 +36,28 @@ describe("<Display />", () => {
     expect(queryByText(/closed/i)).toBeFalsy();
   });
 
-  //   it("should render a list of recipes provided on props", () => {
-  //     const recipesData = [
-  //       { name: "test dish1", course: "dish1" },
-  //       { name: "test dish2", course: "dish2" },
-  //       { name: "test dish3", course: "dish3" }
-  //     ];
+  it("display locked if the locked prop is true", () => {
+    const status = {
+      locked: true
+    };
 
-  //     const test = render(<RecipeList recipes={recipesData} />);
-  //     const recipes = test.getAllByTestId("recipe");
-  //     expect(recipes).toHaveLength(recipesData.length);
-  //   });
-  // });
+    const { queryByText } = render(<Display locked={status.locked} />);
 
-  it("display locked if the locked prop is true and unlocked if otherwise", () => {});
+    expect(queryByText("Locked")).toBeTruthy();
+    expect(queryByText(/unlocked/i)).toBeFalsy();
+  });
 
-  it("when lcoked or closed, uses red-led class", () => {});
+  it("display unlocked if locked prop is false", () => {
+    const status = {
+      locked: false
+    };
 
-  it("when lcoked or closed, uses green-led class", () => {});
+    const { queryByText } = render(<Display locked={status.locked} />);
+
+    expect(queryByText(/unlocked/i)).toBeTruthy();
+    expect(queryByText("Locked")).toBeFalsy();
+  });
+  it("when locked or closed, uses red-led class", () => {});
+
+  it("when locked or closed, uses green-led class", () => {});
 });
