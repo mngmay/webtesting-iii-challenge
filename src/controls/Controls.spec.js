@@ -40,13 +40,26 @@ describe("<Controls />", () => {
     const lockedBtn = dashboard.getByTestId("lockedBtn");
     const openBtn = dashboard.getByTestId("openBtn");
 
+    //default should be Unlocked/Open Lock Gate(disabled)/Close Gate
     expect(openBtn.textContent).toEqual("Close Gate");
+
+    //click to Close Gate
     fireEvent.click(openBtn);
+
+    //expect Unlocked/Closed and Lock Gate/Open Gate
     expect(openBtn.textContent).toEqual("Open Gate");
+
+    //click to Lock Gate
     fireEvent.click(lockedBtn);
+
+    //expect Locked/Closed Unlock Gate/Open Gate(disabled)
     expect(lockedBtn.textContent).toEqual("Unlock Gate");
     expect(openBtn.textContent).toEqual("Open Gate");
+
+    //click to test disabled Open feature
     fireEvent.click(openBtn);
+
+    //text should stay the same due to being disabled
     expect(openBtn.textContent).toEqual("Open Gate");
   });
   it("disables locked toggle button if gate is open", () => {
