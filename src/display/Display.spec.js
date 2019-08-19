@@ -1,9 +1,8 @@
 // Test away!
 import React from "react";
 import renderer from "react-test-renderer";
-import { render, fireEvent } from "@testing-library/react";
-import Display, { asyncFunc } from "./Display";
-import { truncate } from "fs";
+import { render } from "@testing-library/react";
+import Display from "./Display";
 
 describe("<Display />", () => {
   // 2. write this test

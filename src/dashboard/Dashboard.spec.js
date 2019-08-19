@@ -1,8 +1,8 @@
 // Test away
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import renderer from "react-test-renderer"; // 1: install this npm module as a dev dependency
-import Dashboard, { asyncFunc } from "./Dashboard";
+import Dashboard from "./Dashboard";
 
 describe("<Dashboard />", () => {
   // 2. write this test
