@@ -15,49 +15,87 @@ describe("<Display />", () => {
   });
 
   it("display closed if the closed prop is true", () => {
-    const status = {
+    const state = {
       closed: true
     };
 
-    const { queryByText } = render(<Display closed={status.closed} />);
+    const { queryByText } = render(<Display closed={state.closed} />);
 
     expect(queryByText(/closed/i)).toBeTruthy();
     expect(queryByText(/open/i)).toBeFalsy();
   });
 
   it("display open if closed prop is false", () => {
-    const status = {
+    const state = {
       closed: false
     };
 
-    const { queryByText } = render(<Display closed={status.closed} />);
+    const { queryByText } = render(<Display closed={state.closed} />);
 
     expect(queryByText(/open/i)).toBeTruthy();
     expect(queryByText(/closed/i)).toBeFalsy();
   });
 
   it("display locked if the locked prop is true", () => {
-    const status = {
+    const state = {
       locked: true
     };
 
-    const { queryByText } = render(<Display locked={status.locked} />);
+    const { queryByText } = render(<Display locked={state.locked} />);
 
     expect(queryByText("Locked")).toBeTruthy();
     expect(queryByText(/unlocked/i)).toBeFalsy();
   });
 
   it("display unlocked if locked prop is false", () => {
-    const status = {
+    const state = {
       locked: false
     };
 
-    const { queryByText } = render(<Display locked={status.locked} />);
+    const { queryByText } = render(<Display locked={state.locked} />);
 
     expect(queryByText(/unlocked/i)).toBeTruthy();
     expect(queryByText("Locked")).toBeFalsy();
   });
-  it("when locked or closed, uses red-led class", () => {});
+  it("when locked or closed, uses red-led class", () => {
+    const state = {
+      locked: true,
+      closed: true
+    };
 
-  it("when locked or closed, uses green-led class", () => {});
+    const display = render(
+      <Display closed={state.closed} locked={state.locked} />
+    );
+    const locked = display.getByTestId("isLocked");
+    const open = display.getByTestId("isOpen");
+    const redOpen = open.classList.contains("red-led");
+    const redLocked = locked.classList.contains("red-led");
+    const greenOpen = open.classList.contains("green-led");
+    const greenLocked = locked.classList.contains("green-led");
+    expect(redOpen).toBeTruthy();
+    expect(redLocked).toBeTruthy();
+    expect(greenOpen).toBeFalsy();
+    expect(greenLocked).toBeFalsy();
+  });
+
+  it("when unlocked or opened, uses green-led class", () => {
+    const state = {
+      locked: false,
+      closed: false
+    };
+
+    const display = render(
+      <Display closed={state.closed} locked={state.locked} />
+    );
+    const locked = display.getByTestId("isLocked");
+    const open = display.getByTestId("isOpen");
+    const redOpen = open.classList.contains("red-led");
+    const redLocked = locked.classList.contains("red-led");
+    const greenOpen = open.classList.contains("green-led");
+    const greenLocked = locked.classList.contains("green-led");
+    expect(greenOpen).toBeTruthy();
+    expect(greenLocked).toBeTruthy();
+    expect(redOpen).toBeFalsy();
+    expect(redLocked).toBeFalsy();
+  });
 });
