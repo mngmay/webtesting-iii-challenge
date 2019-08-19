@@ -1,12 +1,20 @@
-import React from 'react';
+import React from "react";
 
-import Display from '../display/Display';
-import Controls from '../controls/Controls';
+import Display from "../display/Display";
+import Controls from "../controls/Controls";
+
+export const asyncFunc = () => {
+  return new Promise(resolve => {
+    setTimeout(resolve => {
+      resolve("Success!");
+    }, 1000);
+  });
+};
 
 class Dashboard extends React.Component {
   state = {
     locked: false,
-    closed: false,
+    closed: false
   };
 
   render() {
