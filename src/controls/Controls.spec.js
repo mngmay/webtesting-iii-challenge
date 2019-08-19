@@ -3,6 +3,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { render, fireEvent } from "@testing-library/react";
 import Controls from "./Controls";
+import Dashboard from "../dashboard/Dashboard";
 
 describe("<Controls />", () => {
   it("matches snapshot", () => {
@@ -20,10 +21,16 @@ describe("<Controls />", () => {
     expect(openBtn).toBeTruthy();
   });
   it("displays change in text when buttons are clicked based on state", () => {
-    const state = {
-      locked: false,
-      closed: false
-    };
+    //have to use Dashboard not controls because Dashboard holds state?
+    const dashboard = render(<Dashboard />);
+    const lockedBtn = dashboard.getByTestId("lockedBtn");
+    const openBtn = dashboard.getByTestId("openBtn");
+
+    expect(openBtn.textContent).toEqual("Close Gate");
+    expect(lockedBtn.textContent).toEqual("Lock Gate");
+
+    fireEvent.click(openBtn);
+    expect(openBtn.textContent).toEqual("Open Gate");
   });
   it("disables closed toggle button if gate is locked", () => {});
   it("disables locked toggle button if gate is open", () => {});
