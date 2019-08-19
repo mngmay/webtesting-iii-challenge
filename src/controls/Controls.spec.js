@@ -31,7 +31,33 @@ describe("<Controls />", () => {
 
     fireEvent.click(openBtn);
     expect(openBtn.textContent).toEqual("Open Gate");
+    fireEvent.click(lockedBtn);
+    expect(lockedBtn.textContent).toEqual("Unlock Gate");
   });
-  it("disables closed toggle button if gate is locked", () => {});
-  it("disables locked toggle button if gate is open", () => {});
+  it("disables closed toggle button if gate is locked", () => {
+    const dashboard = render(<Dashboard />);
+
+    const lockedBtn = dashboard.getByTestId("lockedBtn");
+    const openBtn = dashboard.getByTestId("openBtn");
+
+    expect(openBtn.textContent).toEqual("Close Gate");
+    fireEvent.click(openBtn);
+    expect(openBtn.textContent).toEqual("Open Gate");
+    fireEvent.click(lockedBtn);
+    expect(lockedBtn.textContent).toEqual("Unlock Gate");
+    expect(openBtn.textContent).toEqual("Open Gate");
+    fireEvent.click(openBtn);
+    expect(openBtn.textContent).toEqual("Open Gate");
+  });
+  it("disables locked toggle button if gate is open", () => {
+    const dashboard = render(<Dashboard />);
+
+    const lockedBtn = dashboard.getByTestId("lockedBtn");
+    const openBtn = dashboard.getByTestId("openBtn");
+
+    expect(openBtn.textContent).toEqual("Close Gate");
+    expect(lockedBtn.textContent).toEqual("Lock Gate");
+    fireEvent.click(lockedBtn);
+    expect(lockedBtn.textContent).toEqual("Lock Gate");
+  });
 });
